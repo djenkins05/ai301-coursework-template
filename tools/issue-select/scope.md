@@ -30,10 +30,7 @@ else in the rubric applies as written.
 
 ## Your fit profile
 
-<!-- YOU write this part: a few sentences about you. What languages and
-tools you have actually used, what you want to get better at, anything
-you want to avoid. The skill uses this only to RANK the issues your
-rubric accepts, never to change a verdict: fit cannot rescue an issue
-your rubric rejects, and cannot sink one it accepts. -->
+I have experience programming primarily in Python and Java, along with experience using JavaScript and React for web development. I have worked with APIs, Git/GitHub, object-oriented programming, data structures, databases, and client-server applications. I am comfortable debugging existing code and implementing focused backend or application features.
 
-(Write a few sentences here.)
+I would like to improve my experience contributing to an existing codebase, especially working with Python, APIs, backend development, testing, and debugging. For a first contribution, I would prefer a clearly scoped issue with enough information to understand the expected behavior, and I would like to avoid issues that require major architectural changes or extensive unfamiliar infrastructure work.
+
