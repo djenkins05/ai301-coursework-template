@@ -15,72 +15,94 @@ wrong label is not graded.
 
 **Issue link**
 
-[The individual Path Review issue page. A link to the repository or the issue list
-does not satisfy this field.]
+https://github.com/codepath/pathreview-ai301-fa26-howard/issues/64
 
 **Verdict output**
 
-[Your skill's live-mode output for this issue, pasted verbatim and ending with the
-fenced JSON verdict block. A summary does not satisfy this field.]
+Accepted, ranked by fit (Python/API/backend/testing/debugging, clearly scoped, no major architecture):
 
-**The verdict must record `accept` for this issue.** Choose an issue your own skill
-accepts. If your skill rejects every candidate you try, that is a signal about your
-rubric rather than about the issues: revise it and re-run — retries are unlimited and a
-partial re-run costs about $0.20 — or run the skill on different candidates. Output
-recording `reject` for the issue you chose earns no credit for this field.
+1. #26 – Add a safety event count to the health check endpoint — best fit: it's a backend/API wiring task with named files (api/routes/health.py, safety/monitoring.py), a named method to call, and an explicit 2–4 hour estimate. Very concrete and squarely in the "APIs, backend development" preference.
+2. #64 – Relevance scorer "partial overlap" test fixture has full overlap — a clean, bounded testing/debugging fix (wrong fixture value) with an exact repro command and failing assertion.
+3. #59 – Faithfulness checker scores claims unsupported on reworded context — a valid bug fix with repro steps and a concrete example, but ranked last because the fix requires devising a semantic-matching approach rather than just wiring an existing piece, giving it slightly more open-ended design ambiguity than the other two.
 
-```
-paste the output here, including the closing JSON block
-```
+```json
+[
+  {
+    "item": "https://github.com/codepath/pathreview-ai301-fa26-howard/issues/26",
+    "checks": [
+      {"name": "Maintainer activity", "grade": "pass", "evidence": "repo pushed_at 2026-09-16, 12 days before today (2026-09-28)"},
+      {"name": "Repository in use", "grade": "pass", "evidence": "commits on 2026-09-16 (x4) and 2026-08-24, all within 180 days"},
+      {"name": "Newcomer-sized scope", "grade": "pass", "evidence": "wire existing SafetyMonitor.get_event_count() into health.py; touches 2 named files, no architecture change"},
+      {"name": "Issue has enough direction", "grade": "pass", "evidence": "body names exact field (safety_events_last_hour), the method to call, and relevant files"},
+      {"name": "Not already being worked on", "grade": "pass", "evidence": "assignees: [], 0 comments, no linked/mentioned PRs found via search"},
+      {"name": "Contribution policy allows this work", "grade": "pass", "evidence": "no CONTRIBUTING.md or AI policy file present (404 on all checked paths)"},
+      {"name": "Helpful guidance", "grade": "pass", "evidence": "lists relevant files and gives a 2-4 hour effort estimate"}
+    ],
+    "verdict": "accept"
+  },
+  {
+    "item": "https://github.com/codepath/pathreview-ai301-fa26-howard/issues/64",
+    "checks": [
+      {"name": "Maintainer activity", "grade": "pass", "evidence": "repo pushed_at 2026-09-16, 12 days before today"},
+      {"name": "Repository in use", "grade": "pass", "evidence": "commits on 2026-09-16 (x4) and 2026-08-24, within 180 days"},
+      {"name": "Newcomer-sized scope", "grade": "pass", "evidence": "fix one test fixture's query string in one test file; no architecture change"},
+      {"name": "Issue has enough direction", "grade": "pass", "evidence": "names failing test test_query_with_partial_overlap and gives exact repro command/assertion"},
+      {"name": "Not already being worked on", "grade": "pass", "evidence": "assignees: [], 0 comments, no linked/mentioned PRs found via search"},
+      {"name": "Contribution policy allows this work", "grade": "pass", "evidence": "no CONTRIBUTING.md or AI policy file present (404 on all checked paths)"},
+      {"name": "Helpful guidance", "grade": "pass", "evidence": "includes exact pytest repro command and the failing assertion"}
+    ],
+    "verdict": "accept"
+  },
+  {
+    "item": "https://github.com/codepath/pathreview-ai301-fa26-howard/issues/59",
+    "checks": [
+      {"name": "Maintainer activity", "grade": "pass", "evidence": "repo pushed_at 2026-09-16, 12 days before today"},
+      {"name": "Repository in use", "grade": "pass", "evidence": "commits on 2026-09-16 (x4) and 2026-08-24, within 180 days"},
+      {"name": "Newcomer-sized scope", "grade": "pass", "evidence": "fix one function _is_supported() in faithfulness_checker.py; bug fix, not a redesign"},
+      {"name": "Issue has enough direction", "grade": "pass", "evidence": "gives concrete example (Knows Python vs python expert) and named failing test test_multiple_context_chunks"},
+      {"name": "Not already being worked on", "grade": "pass", "evidence": "assignees: [], 0 comments, no linked/mentioned PRs found via search"},
+      {"name": "Contribution policy allows this work", "grade": "pass", "evidence": "no CONTRIBUTING.md or AI policy file present (404 on all checked paths)"},
+      {"name": "Helpful guidance", "grade": "pass", "evidence": "repro command plus concrete before/after scoring example"}
+    ],
+    "verdict": "accept"
+  }
+]
 
 ---
-
 ## Eval iterations
-
-Quote source text directly in each field below. Paraphrase does not satisfy them.
 
 **Run history**
 
-[The agreement score of each run you did, in order. A single run is a complete answer if
-only one run occurred. **The last score in your list must match the agreement line in the
-`eval-run.txt` you committed** — that file is the record of your final run.]
+`agreement: 14/20 scored items  (bar: 18/20: below the bar; category floor unmet: no match in policy)`
+
+`agreement: 2/6 scored items`
+
+`agreement: 2/4 scored items`
+
+`agreement: 19/20 scored items  (bar: 18/20: PASS)`
 
 **Issue analysis**
 
-[One scored issue, identified by id (`issue-01` through `issue-20`; the `calib-`
-issues are not scored). State your rubric's decision, the gold label, and the
-reasoning that produced your rubric's result.]
+For `issue-12`, my rubric originally decided `accept`, while the gold label was `reject`. My rubric accepted it because the repository was active, the issue was clearly scoped, and there was no current assignee or open linked pull request. However, the repo-facts block included the statement, `"We do not accept AI-generated code or documentation."` My original rubric did not treat that contribution policy as a blocker, so I added a required contribution-policy check. After that change, `issue-12` was graded `reject`, which matched the gold label.
 
 **Check rationale**
 
-[One check from the `rubric.md` uploaded to `tools/issue-select/`, quoted as it is
-currently written, with the reasoning behind its current form.]
+`| Contribution policy allows this work | Repo-facts block contribution policy and any contribution restrictions stated in the issue or comment thread. | Pass if the repository does not prohibit the contribution method required for this course work. Fail if the repository explicitly says it does not accept AI-generated code or documentation, reserves the work for maintainers, marks it internal-only, or otherwise states that normal outside contributors may not submit this work. | required |`
+
+I added this check because my first full evaluation showed `policy 0/1`, which meant my rubric completely missed that category. The check makes contribution rules part of the decision instead of assuming that an active and clearly scoped issue is automatically acceptable for a first contribution.
 
 **Trade-offs**
 
-[What the quoted check gives up. Any one of these is a complete answer: an issue whose
-result it changes, a canary you re-ran with `--only`, a case you accept it will miss, or a
-stated reason nothing changed elsewhere. "Nothing changed, and here is how I know" earns
-the point in full when the reason follows.]
+This check changed the result for `issue-12`. Before adding it, my rubric accepted the issue because it looked active, clear, and unclaimed. After adding the contribution-policy check, it was rejected because the repository explicitly stated that it does not accept AI-generated code or documentation. The trade-off is that an issue can look like a strong first contribution in every other way but still be rejected because of the repository's contribution rules.
 
 ---
 
 ## Selection rationale
 
-Graded on whether all three are answered, in your own words. Not on how good the
-reasoning is, and not on length — a short honest answer to each earns the full marks.
-This is also the basis for the claim comment you write in Unit 2.
-
 **Selection rationale**
 
-[Answer all three:
+1. Issue #64 fits my interests because it focuses on testing and debugging, which are areas I already have experience with and want to improve. It also fits the time available because it is a small, clearly scoped issue that points to one failing test fixture instead of requiring a large architectural change.
 
-1. The issue's fit to your interests and to the time available.
-2. What the verdict identified correctly, and what you weighed that the rubric could
-   not.
-3. The anticipated difficulty in claiming it.]
+2. The verdict correctly identified that the repository is active, the issue is small in scope, the problem has enough direction, and nobody is currently assigned to it. It also correctly recognized the exact failing test and reproduction command as useful guidance. One thing I weighed that the rubric could not was my personal preference for the testing and debugging work in #64, even though #26 was ranked higher by the skill.
 
----
-
-Related paths: `eval-run.txt` in this directory; your skill's files in
-`tools/issue-select/`.
+3. I expect the claiming process to be fairly straightforward because the skill found no current assignee, no comments, and no linked or mentioned pull requests for #64. I will still need to follow the Unit 2 instructions for writing the correct claim comment before starting the work.
