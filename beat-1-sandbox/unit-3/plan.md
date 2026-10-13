@@ -145,4 +145,10 @@ If changing the fixture does not resolve the test failure, I will investigate th
 
 ## Deviations
 
-Implementation has not started yet. I will update this section after making and testing the change to explain whether I followed the original plan or needed to adjust it.
+## Deviations
+
+The implementation followed my original plan. I changed the partial-overlap fixture so it contained two of the four query terms, producing a score of `0.5`, and removed the issue-specific `xfail` marker after confirming that the test passed.
+
+There were a few minor differences during testing. My virtual environment was named `.venv` instead of `venv`, so I adjusted the test commands to use that directory. I also checked `pyproject.toml` for a related suppression, but none existed for Issue #64, so no change was needed there.
+
+I ran the repository's lint, type-checking, and unit-test commands in addition to the targeted relevance scorer tests. The relevant tests passed, and I did not need to modify the scoring algorithm or expand the scope of the fix.
