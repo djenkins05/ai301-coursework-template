@@ -4,19 +4,19 @@
 
 ## Featured Tools
 
-I chose Issue Scout, Repro-Check, Plan-Check, and PR Precheck because they cover the different stages of my open-source contribution process: finding an issue, reproducing it, planning the fix, and checking a pull request before submitting it. Throughout the semester, I learned that AI tools need clear instructions, reliable evaluation criteria, and testing to make useful recommendations. I also learned to keep track of which parts of each tool I wrote, which parts staff provided, and which results came from using a tool on work I had already done. For Repro-Check, Plan-Check, and PR Precheck I wrote the rubric, evidence guide, and voice guide, and for Issue Scout I wrote the search strategy and rubric. Staff supplied the skill packages, the evaluation harness, and later scope files and patches, and I say where each one comes in below.
+I chose Issue Scout, Repro-Check, Plan-Check, and PR Precheck because they cover the different stages of my open-source contribution process: finding an issue, reproducing it, planning the fix, and checking a pull request before submitting it. Throughout the semester, I learned that AI tools need clear instructions, reliable evaluation criteria, and testing to make useful recommendations.
 
 **Issue Scout**
 
 **What it is, and the judgment hole I wrote:**
 
-Issue Scout searches GitHub for open issues, ranks them cheaply against a search strategy, and grades the top five against a rubric. The skeleton was staff-provided. The judgment I wrote was the fit profile, the search strategy, and my original seven-check rubric (commit `493e695`, November 16, 2026), including a required "Newcomer-sized scope" check. I wanted the tool to decide what makes an issue realistic for me instead of relying only on GitHub labels.
+Issue Scout searches GitHub for open issues, ranks them cheaply against a search strategy, and grades the top five against a rubric. The judgment I wrote was the fit profile, the search strategy, and my original seven-check rubric (commit `493e695`, November 16, 2026), including a required "Newcomer-sized scope" check. I wanted the tool to decide what makes an issue realistic for me instead of relying only on GitHub labels.
 
 **How it evolved, dated:**
 
-On November 16, 2026, I ran two scans, and I want to keep them separate. Scan 1 (`scan-output.md`) was my first run with the original rubric. Scan 2 (`scan-output1.md`, commit `473fffb`) ran about 15 minutes later, and GitHub's top 100 results for the same queries had already changed. Scan 2 also included a retrospective grade of Rafter CLI issue #29, which I had claimed on November 12 and opened PR #362 for on November 13. The scout never found #29, because it was not in the top 100 of any query.
+On November 16, 2026, I ran two scans, and I want to keep them separate. Scan 1 (`scan-output.md`) was my first run with the original rubric. Scan 2 (`scan-output1.md`, commit `473fffb`) ran about 15 minutes later, and GitHub's top 100 results for the same queries had already changed. Scan 2 also included a retrospective grade of Rafter CLI issue #29, which I had claimed on November 12 and opened PR #362 for on November 13. The scout never found #29, because it wasn't in the top 100 of any query.
 
-After Scan 2, I applied a staff-provided rubric patch to my installed skill. The patch replaced my "Newcomer-sized scope" row with a staff-written `scope-feasible` row, and I pasted it in unchanged. It also added a difficulty note (straightforward, moderate, or ambitious) that never changes a verdict. I did not design or rewrite that criterion. Then I regraded three issues. The patch exists only in my installed skill: the rubric in my `ai301-unit5-starter` repository still has my original row, and the regrade appendix is only in the installed copy of `scan-output1.md`.
+After Scan 2, I applied a staff-provided rubric patch to my installed skill. The patch replaced my "Newcomer-sized scope" row with a staff-written `scope-feasible` row, and I pasted it in unchanged. It also added a difficulty note (straightforward, moderate, or ambitious) that never changes a verdict. I didn't design or rewrite that criterion. Then I regraded three issues. The patch exists only in my installed skill: the rubric in my `ai301-unit5-starter` repository still has my original row, and the regrade appendix is only in the installed copy of `scan-output1.md`.
 
 **Evidence:**
 
@@ -28,13 +28,13 @@ The staff row says a candidate fails scope only when "there is no single piece o
 
 Regrade under the staff patch (Scan 2 issues plus #29):
 
-- Starry-Palace #325 changed from REJECT to ACCEPT, with the difficulty note "ambitious." The regrade described it as production deployment work, and it noted that the patched rubric now accepts an issue an outside contributor realistically cannot do. A rubric ACCEPT did not make it a good fit for me.
-- Rafter CLI #29 was evaluated retrospectively and was not discovered by the scout. The original rubric rejected it for two reasons: umbrella scope, and my own PR #362 failing "not already being worked on." After the patch it was still REJECT, now only because of the existing PR.
+- Starry-Palace #325 changed from REJECT to ACCEPT, with the difficulty note "ambitious." The regrade described it as production deployment work, and it noted that the patched rubric now accepts an issue an outside contributor realistically can't do. A rubric ACCEPT didn't make it a good fit for me.
+- Rafter CLI #29 was evaluated retrospectively and wasn't discovered by the scout. The original rubric rejected it for two reasons: umbrella scope, and my own PR #362 failing "not already being worked on." After the patch it was still REJECT, now only because of the existing PR.
 - globalstack #135 stayed REJECT because "Issue has enough direction" was still `unclear`.
 
-My notes in `scan-notes1.md` (lines 25-34) list nine improvements, such as a "premise still true" check, a cap per repository, and label-filtered queries. Those are proposed future improvements. I have not implemented any of them.
+My notes in `scan-notes1.md` (lines 25-34) list nine improvements, such as a "premise still true" check, a cap per repository, and label-filtered queries. Those are proposed future improvements. I haven't implemented any of them.
 
-This showed me that changing a rubric changes the tool's decisions, and that the tool's formal result is not the same as my own judgment about what to work on.
+This showed me that changing a rubric changes the tool's decisions, and that the tool's formal result isn't the same as my own judgment about what to work on.
 
 **Repro-Check**
 
@@ -46,7 +46,7 @@ Repro-Check grades a reproduction package, meaning a claim comment plus a repro 
 
 On September 30, 2026, commit `07cfb76` rewrote `rubric.md` and completed `evidence-guide.md`. On October 1, 2026, commit `edfbe1a` refined the rubric and added the evaluation run, which scored 19/20. On October 5, 2026, commit `63016cb` updated the voice guide. These were three separate changes on three dates. I don't have a score from before the September 30 rewrite, so I can't say how much it improved.
 
-On November 16, 2026, I used Repro-Check on my Rafter CLI reproduction package for issue #29 and ran it four times. The first problems were about evidence access, not necessarily the quality of my reports. In Run 1 the skill could not read its own rubric files because the reads were denied, so I got no verdict. In Run 2 it could not read issue #29 or `CONTRIBUTING.md`, so three criteria came back `unclear` and the verdict was REJECT, because the rubric counts `unclear` as a fail. Run 3 could read what it needed and returned ACCEPT, with a warning that my grep did not match my claim. Run 4 returned ACCEPT again, with a note about my install commands. After Run 3 I re-ran the grep with the right patterns and softened the wording, and I labeled the install commands as adapted.
+On November 16, 2026, I used Repro-Check on my Rafter CLI reproduction package for issue #29 and ran it four times. The first problems were about evidence access, not necessarily the quality of my reports. In Run 1 the skill couldn't read its own rubric files because the reads were denied, so I didn't get a verdict. In Run 2 it could not read issue #29 or `CONTRIBUTING.md`, so three criteria came back `unclear` and the verdict was REJECT, because the rubric counts `unclear` as a fail. Run 3 could read what it needed and returned ACCEPT, with a warning that my grep did not match my claim. Run 4 returned ACCEPT again, with a note about my install commands. After Run 3 I re-ran the grep with the right patterns and softened the wording, and I labeled the install commands as adapted.
 
 **Evidence:**
 
@@ -61,7 +61,7 @@ November 16, 2026 runs (`unit10/repro-check-run1.txt` to `run4.txt` in `ai301-un
 
 My Python tests showed 4 passed and the Node reference test showed 11 passed.
 
-Run 3's grep warning was a real catch. The checker found a claim in my report that its own evidence did not support, and I had not noticed that myself.
+Run 3's grep warning was a real catch. The checker found a claim in my report that its own evidence didn't support, and I hadn't noticed that myself.
 
 **Plan-Check**
 
@@ -73,7 +73,7 @@ Plan-Check grades a plan package, which is a plan plus a plan comment read again
 
 I authored Plan-Check on October 8, 2026, in `ai301-unit3-starter` commit `c95c555`: rubric, procedure, evidence guide, voice guide, and an evaluation run. The evaluation scored 19/20. On October 12, 2026, commit `c702132` uploaded and copied those files into my course repository. That was the copy date, not when I wrote the tool.
 
-The `plan-check/scope.md` that was installed for my Rafter CLI work on November 16 was provided by staff, and I did not write or update it. It says "Staff wrote this file. It ships filled; there is nothing to edit." Its rules include keeping the plan comment off the issue thread.
+The `plan-check/scope.md` that was installed for my Rafter CLI work on November 16 was provided by staff, and I didn't write or update it. It says "Staff wrote this file. It ships filled; there is nothing to edit." Its rules include keeping the plan comment off the issue thread.
 
 Unlike Issue Scout and Repro-Check, I don't have a before-and-after result showing that a specific revision of Plan-Check changed a grading decision. Its evolution is thinly recorded.
 
@@ -83,7 +83,7 @@ October 8, 2026: commit `c95c555` (authoring and evaluation run). October 12, 20
 
 Evaluation score: 19/20.
 
-November 16, 2026: Plan-Check returned ACCEPT with 10/10 checks passing on my Rafter CLI plan (`plan.md`) and plan comment (`plan-comment.md`). That grade was retrospective, because I wrote both files after I had already implemented the tests and opened PR #362. It did not approve the plan before I wrote code. The result still told me something: it noted that the plan covers 4 of the Node file's 11 scenarios and that the package was retrospective, and its voice notes flagged that my draft comment asked two questions at once.
+November 16, 2026: Plan-Check returned ACCEPT with 10/10 checks passing on my Rafter CLI plan (`plan.md`) and plan comment (`plan-comment.md`). That grade was retrospective, because I wrote both files after I had already implemented the tests and opened PR #362. It didn't approve the plan before I wrote code. The result still told me something: it noted that the plan covers 4 of the Node file's 11 scenarios and that the package was retrospective, and its voice notes flagged that my draft comment asked two questions at once.
 
 **PR Precheck**
 
@@ -163,7 +163,7 @@ Result: PR Precheck scored 20/20 on the evaluation.
 
 Date: November 16, 2026
 
-Friction: When I ran Repro-Check on my Rafter CLI reproduction package, the first two runs gave me no usable verdict. Run 1 could not read the skill's files, and Run 2 could not read the issue or `CONTRIBUTING.md`.
+Friction: When I ran Repro-Check on my Rafter CLI reproduction package, the first two runs gave me no usable verdict. Run 1 couldn't read the skill's files, and Run 2 could not read the issue or `CONTRIBUTING.md`.
 
 Change: I made the evidence available (including a saved snapshot of the issue), then ran it again. After Run 3's warning about my grep claim, I re-ran the grep with the right patterns, softened the wording, and labeled my install commands as adapted.
 
@@ -177,7 +177,7 @@ Friction: My Issue Scout rubric rejected issues because of how strictly it read 
 
 Change: I applied the staff-provided `scope-feasible` patch to my installed rubric, unchanged, and regraded three issues.
 
-Result: Starry-Palace #325 changed from REJECT to ACCEPT, but the regrade still called it ambitious, so the ACCEPT did not make it a good fit for me. #29 stayed REJECT because of my existing PR #362. My nine proposed improvements in `scan-notes1.md` are still proposals.
+Result: Starry-Palace #325 changed from REJECT to ACCEPT, but the regrade still called it ambitious, so the ACCEPT didn't make it a good fit for me. #29 stayed REJECT because of my existing PR #362. My nine proposed improvements in `scan-notes1.md` are still proposals.
 
 **Beat 7**
 
